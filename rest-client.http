@@ -7,3 +7,6 @@ GET http://localhost:3000/users/1
 
 ###
 PUT http://localhost:3000/users/1
+
+###
+POST http://localhost:3000/users

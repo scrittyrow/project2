@@ -1,11 +1,20 @@
+import { UsersService } from './users.service';
+import { Controller, Get, Put, Post } from '@nestjs/common';
 
-import { Controller, Get, Put } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController {
+    
+    constructor(private usersService: UsersService) {}
+    @Post()
+    create() {
+      return this.usersService.create('John Doe');
+
+    }
     @Get()
     findAll() {
-        return 'find all users';
+        return this.usersService.findAll()
+        
     }
     @Get(':id')
     findOne() {
