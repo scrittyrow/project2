@@ -10,3 +10,11 @@ PUT http://localhost:3000/users/1
 
 ###
 POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "dateJoined": "7/28/24"
+
+}
