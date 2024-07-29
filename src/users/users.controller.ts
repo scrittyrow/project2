@@ -1,16 +1,47 @@
-
-import { Controller, Get, Put } from '@nestjs/common';
+import { UsersService } from './users.service';
+import { Controller, 
+         Get, 
+         Put, 
+         Post, 
+         Delete, 
+         ParseIntPipe,
+         HttpException,
+         HttpStatus,
+         Param,
+         Body,
+         } from '@nestjs/common';
+import { CreateUserDTO } from './dto/create-user-dto';
 
 @Controller('users')
 export class UsersController {
+    constructor(private usersService: UsersService) {}
+    @Post()
+    create(@Body() createUserDTO: CreateUserDTO) {
+      return this.usersService.create(createUserDTO);
+
+    }
     @Get()
     findAll() {
-        return 'find all users';
+      try{
+        return this.usersService.findAll();
+      } catch (e) {
+        throw new HttpException ( 'Server Error', HttpStatus.INTERNAL_SERVER_ERROR, {
+            cause :e,
+        }, 
+    );
+      }
     }
     @Get(':id')
-    findOne() {
-        return 'find user by id';
+    findOne(
+        @Param(
+            'id',
+            new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+        )
+        id: number,
+    ) {
+        return 'find user by id ${typeof id}';
     }
+
     @Put(':id')
     update() {
         return 'update user by id';
