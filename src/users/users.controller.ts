@@ -11,8 +11,12 @@ import { Controller,
          Body,
          } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user-dto';
+//import { Connection } from 'src/common/constants/connection.';
 
-@Controller('users')
+@Controller({
+  path: 'users',
+  
+})
 export class UsersController {
     constructor(private usersService: UsersService) {}
     @Post()
