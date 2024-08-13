@@ -9,16 +9,25 @@ import { Controller,
          HttpStatus,
          Param,
          Body,
+         Inject,
+         Scope,
          } from '@nestjs/common';
 import { CreateUserDTO } from './dto/create-user-dto';
-//import { Connection } from 'src/common/constants/connection.';
+//import { Connection } from 'src/common/constants/connection';
 
 @Controller({
   path: 'users',
-  
+  scope: Scope.REQUEST
 })
 export class UsersController {
-    constructor(private usersService: UsersService) {}
+    constructor(
+      private usersService: UsersService,
+    //@Inject('CONNECTION'), 
+    //private connection: Connection,
+    
+    ) {
+      //console.log(this.connection);
+    }
     @Post()
     create(@Body() createUserDTO: CreateUserDTO) {
       return this.usersService.create(createUserDTO);
@@ -43,7 +52,7 @@ export class UsersController {
         )
         id: number,
     ) {
-        return 'find user by id ${typeof id}';
+        return 'find user by id, ${typeof id}';
     }
 
     @Put(':id')

@@ -7,7 +7,7 @@ export class CreateUserDTO {
     @IsString({ each: true})
     @IsNotEmpty()
     readonly firstName: string;
-    @IsString()
+    @IsString({ each: true})
     @IsNotEmpty()
     readonly lastName: string;
     @IsNotEmpty()
